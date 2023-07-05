@@ -1,0 +1,20 @@
+//
+
+std::vector<int> btp(int n)// returns list of number of nodes each element is "under" from top of binary tree, biased to left
+{
+    int ent = 0, power = 1;
+    while (power <= n/2)
+    {
+        power *= 2;
+        ent++;
+    }
+    std::vector<int> coef(power,ent);
+    if (power != n)
+    {
+        std::vector<int> t = btp(n-power);
+        coef.insert(coef.end(), t.begin(), t.end());
+        for (int i=0; i<coef.size(); i++)
+            coef[i]++;
+    }
+    return coef;
+}
